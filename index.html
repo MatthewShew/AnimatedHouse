@@ -11,8 +11,8 @@
 		var moveCloudx = 3000;
 		var moveCloudy = 900;
 
-		var moveCloudyUp = moveCloudy - 30;
-		var moveCloudyDwn = moveCloudy + 30;
+		var moveCloudyUp = moveCloudy - 120;
+		var moveCloudyDwn = moveCloudy + 120;
 
 		var moveCloudxL = moveCloudx;
 		var moveCloudxR = moveCloudx;
@@ -20,31 +20,41 @@
 		var scaleX = 0.1;
 		var scaleY = 0.2;
 		var opacity = 1.0;
+
+		var scaleX1 = 0.1;
+		var scaleY1 = 0.2;
+		var opacity1 = 1.0;
+
+		var scaleX2 = 0.1;
+		var scaleY2 = 0.2;
+		var opacity2 = 1.0;
+
+
+
 		drawHouse();
 		drawAwning();
 		drawDoor();
 		drawWindows();
 		drawChimney();
-
-		var data = ctx.getImageData(0,0,canvas.width,canvas.height);		
-		drawSmoke();
-		var mm = setInterval(drawSmoke, 50);
-
 		
-		
+
+		var data = ctx.getImageData(0,0,canvas.width,canvas.height);
+		setInterval(drawSmoke,50);
+
+
 		function drawSmoke() {
+			ctx.putImageData(data,0,0);
 			if(moveCloudy < 100){
 				moveCloudy = 900;
-				moveCloudyUp = moveCloudy - 60;
-				moveCloudyDwn = moveCloudy + 60;
-				moveCloudxL = moveCloudx;
-				moveCloudxR = moveCloudx;
-				scaleY = 0.2;
+				//moveCloudyUp = moveCloudy - 60;
+				//moveCloudyDwn = moveCloudy + 60;
+				//moveCloudxL = moveCloudx;
+				//moveCloudxR = moveCloudx;
 				scaleX = 0.1;
+				scaleY = 0.2;
 				opacity = 1.0;
 			}
-
-			ctx.putImageData(data, 0, 0);
+			
 			ctx.save();
 			ctx.scale(scaleX,scaleY);
 			ctx.beginPath();
@@ -61,8 +71,20 @@
 			ctx.fill();
 
 
+			moveCloudy = moveCloudy - 15;
+			//scaleX = scaleX + 0.0005;
+			//scaleY = scaleY + 0.002;
+			opacity = opacity - 0.02;
+
+			if(moveCloudyUp < 100){
+				moveCloudyUp = 900;
+				scaleX1 = 0.1;
+				scaleY1 = 0.2;
+				opacity1 = 1.0;
+				moveCloudxL = moveCloudx;
+			}
 			ctx.save();
-			ctx.scale(scaleX,scaleY);
+			ctx.scale(scaleX1,scaleY1);
 			ctx.beginPath();
 			ctx.moveTo(150 + moveCloudxL, 100 + moveCloudyUp);
 			ctx.bezierCurveTo(100 + moveCloudxL, 120 + moveCloudyUp, 120 + moveCloudxL, 180 + moveCloudyUp, 250 + moveCloudxL, 150 + moveCloudyUp);
@@ -73,11 +95,26 @@
 			ctx.bezierCurveTo(200 + moveCloudxL, 10 + moveCloudyUp, 130 + moveCloudxL, 20 + moveCloudyUp, 150 + moveCloudxL, 100 + moveCloudyUp);
 			ctx.closePath();
 			ctx.restore();
-			ctx.fillStyle = "rgba(211,211,211,"+opacity+")";
+			ctx.fillStyle = "rgba(211,211,211,"+opacity1+")";
 			ctx.fill();
 
+			moveCloudyUp = moveCloudyUp - 15;
+			moveCloudxL = moveCloudxL - 5;
+
+			//scaleX1 = scaleX1 + 0.0005;
+			//scaleY1 = scaleY1 + 0.002;
+			opacity1 = opacity1 - 0.02;
+		
+			if(moveCloudyDwn < 100){
+				moveCloudyDwn = 900;
+				scaleX2 = 0.1;
+				scaleY2 = 0.2;
+				opacity2 = 1.0;
+				moveCloudxR = moveCloudx;
+
+			}
 			ctx.save();
-			ctx.scale(scaleX,scaleY);
+			ctx.scale(scaleX2,scaleY2);
 			ctx.beginPath();
 			ctx.moveTo(150 + moveCloudxR, 100 + moveCloudyDwn);
 			ctx.bezierCurveTo(100 + moveCloudxR, 120 + moveCloudyDwn, 120 + moveCloudxR, 180 + moveCloudyDwn, 250 + moveCloudxR, 150 + moveCloudyDwn);
@@ -88,18 +125,14 @@
 			ctx.bezierCurveTo(200 + moveCloudxR, 10 + moveCloudyDwn, 130 + moveCloudxR, 20 + moveCloudyDwn, 150 + moveCloudxR, 100 + moveCloudyDwn);
 			ctx.closePath();
 			ctx.restore();
-			ctx.fillStyle = "rgba(211,211,211,"+opacity+")";
+			ctx.fillStyle = "rgba(211,211,211,"+opacity2+")";
 			ctx.fill();
 			
-			moveCloudy = moveCloudy - 15;
 			moveCloudyDwn = moveCloudyDwn - 15;
-			moveCloudyUp = moveCloudyUp - 15;
 			moveCloudxR = moveCloudxR + 5;
-			moveCloudxL = moveCloudxL - 5;
-			scaleX = scaleX + 0.0005;
-			scaleY = scaleY + 0.002;
-			opacity = opacity - 0.02;
-			
+			//scaleX2 = scaleX2 + 0.0005;
+			//scaleY2 = scaleY2 + 0.002;
+			opacity2 = opacity2 - 0.02;
 			
 		}
 
@@ -109,7 +142,6 @@
 			ctx.closePath();
 			ctx.fillStyle = "green";
 			ctx.fill();
-
 			ctx.beginPath();
 			ctx.rect(100,300,200,150);
 			ctx.closePath();
