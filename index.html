@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Chinmney House</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+
+	function drawAll(){
+		var canvas = document.getElementById('myCanvas');
+		var ctx = canvas.getContext('2d');
+		var moveCloudx = 3000;
+		var moveCloudy = 900;
+
+		var moveCloudyUp = moveCloudy - 30;
+		var moveCloudyDwn = moveCloudy + 30;
+
+		var moveCloudxL = moveCloudx;
+		var moveCloudxR = moveCloudx;
+
+		var scaleX = 0.1;
+		var scaleY = 0.2;
+		var opacity = 1.0;
+		drawHouse();
+		drawAwning();
+		drawDoor();
+		drawWindows();
+		drawChimney();
+
+		var data = ctx.getImageData(0,0,canvas.width,canvas.height);		
+		drawSmoke();
+		var mm = setInterval(drawSmoke, 50);
+
+		
+		
+		function drawSmoke() {
+			if(moveCloudy < 100){
+				moveCloudy = 900;
+				moveCloudyUp = moveCloudy - 60;
+				moveCloudyDwn = moveCloudy + 60;
+				moveCloudxL = moveCloudx;
+				moveCloudxR = moveCloudx;
+				scaleY = 0.2;
+				scaleX = 0.1;
+				opacity = 1.0;
+			}
+
+			ctx.putImageData(data, 0, 0);
+			ctx.save();
+			ctx.scale(scaleX,scaleY);
+			ctx.beginPath();
+			ctx.moveTo(150 + moveCloudx, 100 + moveCloudy);
+			ctx.bezierCurveTo(100 + moveCloudx, 120 + moveCloudy, 120 + moveCloudx, 180 + moveCloudy, 250 + moveCloudx, 150 + moveCloudy);
+			ctx.bezierCurveTo(280 + moveCloudx, 180 + moveCloudy, 320 + moveCloudx, 170 + moveCloudy, 350 + moveCloudx, 150 + moveCloudy);
+			ctx.bezierCurveTo(420 + moveCloudx, 170 + moveCloudy, 440 + moveCloudx, 120 + moveCloudy, 400 + moveCloudx, 100 + moveCloudy);
+			ctx.bezierCurveTo(450 + moveCloudx, 50 + moveCloudy, 380 + moveCloudx, 20 + moveCloudy, 350 + moveCloudx, 50 + moveCloudy);
+			ctx.bezierCurveTo(330 + moveCloudx, 10 + moveCloudy, 250 + moveCloudx, 5 + moveCloudy, 250 + moveCloudx, 50 + moveCloudy);
+			ctx.bezierCurveTo(200 + moveCloudx, 10 + moveCloudy, 130 + moveCloudx, 20 + moveCloudy, 150 + moveCloudx, 100 + moveCloudy);
+			ctx.closePath();
+			ctx.restore();
+			ctx.fillStyle = "rgba(211,211,211,"+opacity+")";
+			ctx.fill();
+
+
+			ctx.save();
+			ctx.scale(scaleX,scaleY);
+			ctx.beginPath();
+			ctx.moveTo(150 + moveCloudxL, 100 + moveCloudyUp);
+			ctx.bezierCurveTo(100 + moveCloudxL, 120 + moveCloudyUp, 120 + moveCloudxL, 180 + moveCloudyUp, 250 + moveCloudxL, 150 + moveCloudyUp);
+			ctx.bezierCurveTo(280 + moveCloudxL, 180 + moveCloudyUp, 320 + moveCloudxL, 170 + moveCloudyUp, 350 + moveCloudxL, 150 + moveCloudyUp);
+			ctx.bezierCurveTo(420 + moveCloudxL, 170 + moveCloudyUp, 440 + moveCloudxL, 120 + moveCloudyUp, 400 + moveCloudxL, 100 + moveCloudyUp);
+			ctx.bezierCurveTo(450 + moveCloudxL, 50 + moveCloudyUp, 380 + moveCloudxL, 20 + moveCloudyUp, 350 + moveCloudxL, 50 + moveCloudyUp);
+			ctx.bezierCurveTo(330 + moveCloudxL, 10 + moveCloudyUp, 250 + moveCloudxL, 5 + moveCloudyUp, 250 + moveCloudxL, 50 + moveCloudyUp);
+			ctx.bezierCurveTo(200 + moveCloudxL, 10 + moveCloudyUp, 130 + moveCloudxL, 20 + moveCloudyUp, 150 + moveCloudxL, 100 + moveCloudyUp);
+			ctx.closePath();
+			ctx.restore();
+			ctx.fillStyle = "rgba(211,211,211,"+opacity+")";
+			ctx.fill();
+
+			ctx.save();
+			ctx.scale(scaleX,scaleY);
+			ctx.beginPath();
+			ctx.moveTo(150 + moveCloudxR, 100 + moveCloudyDwn);
+			ctx.bezierCurveTo(100 + moveCloudxR, 120 + moveCloudyDwn, 120 + moveCloudxR, 180 + moveCloudyDwn, 250 + moveCloudxR, 150 + moveCloudyDwn);
+			ctx.bezierCurveTo(280 + moveCloudxR, 180 + moveCloudyDwn, 320 + moveCloudxR, 170 + moveCloudyDwn, 350 + moveCloudxR, 150 + moveCloudyDwn);
+			ctx.bezierCurveTo(420 + moveCloudxR, 170 + moveCloudyDwn, 440 + moveCloudxR, 120 + moveCloudyDwn, 400 + moveCloudxR, 100 + moveCloudyDwn);
+			ctx.bezierCurveTo(450 + moveCloudxR, 50 + moveCloudyDwn, 380 + moveCloudxR, 20 + moveCloudyDwn, 350 + moveCloudxR, 50 + moveCloudyDwn);
+			ctx.bezierCurveTo(330 + moveCloudxR, 10 + moveCloudyDwn, 250 + moveCloudxR, 5 + moveCloudyDwn, 250 + moveCloudxR, 50 + moveCloudyDwn);
+			ctx.bezierCurveTo(200 + moveCloudxR, 10 + moveCloudyDwn, 130 + moveCloudxR, 20 + moveCloudyDwn, 150 + moveCloudxR, 100 + moveCloudyDwn);
+			ctx.closePath();
+			ctx.restore();
+			ctx.fillStyle = "rgba(211,211,211,"+opacity+")";
+			ctx.fill();
+			
+			moveCloudy = moveCloudy - 15;
+			moveCloudyDwn = moveCloudyDwn - 15;
+			moveCloudyUp = moveCloudyUp - 15;
+			moveCloudxR = moveCloudxR + 5;
+			moveCloudxL = moveCloudxL - 5;
+			scaleX = scaleX + 0.0005;
+			scaleY = scaleY + 0.002;
+			opacity = opacity - 0.02;
+			
+			
+		}
+
+		function drawHouse(){
+			ctx.beginPath();
+			ctx.rect(0,400,canvas.width,canvas.height);
+			ctx.closePath();
+			ctx.fillStyle = "green";
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.rect(100,300,200,150);
+			ctx.closePath();
+			ctx.fillStyle = "red";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.moveTo(100,300);
+			ctx.lineTo(200,200);
+			ctx.lineTo(300,300);
+			ctx.closePath();
+			ctx.fillStyle = "blue";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.moveTo(300,300);
+			ctx.lineTo(400,270);
+			ctx.lineTo(320,185);
+			ctx.lineTo(200,200);
+			ctx.closePath();
+			ctx.fillStyle = "red";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.moveTo(300,300);
+			ctx.lineTo(300,450);
+			ctx.lineTo(400,410);
+			ctx.lineTo(400,270);
+			ctx.closePath();
+			ctx.fillStyle = "purple";
+			ctx.fill();
+		}
+
+
+		function drawAwning(){
+			ctx.beginPath();
+			ctx.moveTo(100,300);
+			ctx.lineTo(300,300);
+			ctx.lineTo(250,350);
+			ctx.lineTo(50,350);
+			ctx.closePath();
+			ctx.fillStyle = "yellow";
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.moveTo(250,350);
+			ctx.lineTo(250,460);
+			ctx.closePath();
+			ctx.lineWidth = "5";
+			ctx.strokeStyle = "blue";
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(55,350);
+			ctx.lineTo(55,460);
+			ctx.closePath();
+			ctx.stroke();
+
+
+
+
+
+		}
+
+		function drawDoor(){
+			ctx.beginPath();
+			ctx.rect(160,350,80,100);
+			ctx.closePath();
+			ctx.fillStyle = "brown";
+			ctx.fill();
+			ctx.beginPath();
+			ctx.arc(225,395,5,0,2*Math.PI);
+			ctx.closePath();
+			ctx.fillStyle = "black";
+			ctx.fill();
+
+			
+
+
+		}
+
+		function drawWindows(){
+			ctx.beginPath();
+			ctx.moveTo(330,337);
+			ctx.lineTo(330,400);
+			ctx.lineTo(380,380);
+			ctx.lineTo(380,320);
+			ctx.closePath();
+			ctx.fillStyle = "orange";
+			ctx.fill();
+			ctx.lineWidth = 3;
+			ctx.strokeStyle = "black";
+			ctx.stroke();
+			
+			ctx.beginPath();
+			ctx.moveTo(355,328);
+			ctx.lineTo(355,390);
+			ctx.closePath();
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(330,368);
+			ctx.lineTo(380,350);
+			ctx.closePath();
+			ctx.stroke();
+
+			//top A frame window
+			ctx.beginPath();
+			ctx.arc(200,260,25,0,2*Math.PI);
+			ctx.closePath();
+			ctx.fillStyle = "green";
+			ctx.fill();
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(200,285);
+			ctx.lineTo(200,235);
+			ctx.closePath();
+			ctx.stroke();
+
+			ctx.beginPath();
+			ctx.moveTo(175,260);
+			ctx.lineTo(225,260);
+			ctx.closePath();
+			ctx.stroke();
+
+
+
+		}
+
+		function drawChimney(){
+
+			ctx.beginPath();
+			ctx.moveTo(320,267);
+			ctx.lineTo(340,260);
+			ctx.lineTo(340,220);
+			ctx.lineTo(320,227);
+			ctx.closePath();
+			ctx.fillStyle = "black";
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.moveTo(320,267);
+			ctx.lineTo(320,227);
+			ctx.lineTo(310,220);
+			ctx.lineTo(310,260);			
+			ctx.closePath();
+			ctx.fillStyle = "purple";
+			ctx.fill();
+
+			ctx.beginPath();
+			ctx.moveTo(320,227);
+			ctx.lineTo(310,220);
+			ctx.lineTo(328,214);
+			ctx.lineTo(340,220);
+			ctx.closePath();
+			ctx.fillStyle = "blue";
+			ctx.fill();
+
+
+
+
+
+		}
+
+
+/*
+		//drawText writes my name under the image
+		function drawText(){
+			ctx.fillStyle = "black";
+			ctx.font = "bold 1em Arial"; 
+			ctx.fillText("Matthew Shew", 50, 190);
+		}
+		//drawFace prints a yellow circle 
+		function drawFace(){
+			var startAngle = 0;
+			var radius = 50;
+			var endAngle = 2 * Math.PI;
+			ctx.beginPath();
+			ctx.arc(x,y,radius,startAngle,endAngle);
+			ctx.fillStyle = "yellow";
+			ctx.fill();		
+		}
+		//drawEyes prints two elliptical eyes
+		function drawEyes(){
+			radius = 5;
+			ctx.save();
+			ctx.scale(1,1.6);
+			ctx.beginPath();
+			ctx.arc(x-15,y-50,radius, 0, 2*Math.PI);
+			ctx.restore();
+			ctx.fillStyle = "black";
+			ctx.fill();
+
+			ctx.save();
+			ctx.scale(1,1.6);
+			ctx.beginPath();
+			ctx.arc(x+15,y-50,radius, 0, 2*Math.PI);
+			ctx.restore();
+			ctx.fill();		
+		}
+		//drawMouth changes between a frowny and smiley face
+		function drawMouth() {
+			ctx.putImageData(data, 0, 0);
+			var radius = 28;
+			ctx.beginPath();
+			if(bool == true){
+
+				ctx.arc(x,y,radius,0 + 0.5,Math.PI - 0.5);
+				ctx.stroke();
+				bool = false;
+			}
+			else{
+				ctx.arc(x,y + 40,radius,Math.PI + 0.5, 2*Math.PI - 0.5);
+				ctx.stroke();
+				bool = true;
+			}
+		}
+
+
+*/
+	}
+
+	</script>
+	<style>
+		canvas { border: 2px solid red; }
+	</style>
+</head>
+<body onload="drawAll()">
+	<canvas id="myCanvas" width="500" height="500"></canvas>
+</body>
+</html>
